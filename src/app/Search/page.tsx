@@ -1,4 +1,4 @@
-import { ProductCard } from "@/components/ui/product-card"
+import { ProductCard } from "@/components/ui/product-card";
 
 // This would typically come from an API or database
 const allProducts = [
@@ -13,19 +13,23 @@ const allProducts = [
     isSale: false,
   },
   // Add more products here
-]
+];
 
 export default function SearchPage({
   searchParams,
 }: {
-  searchParams: { q: string }
+  searchParams: { q: string };
 }) {
-  const query = searchParams.q ?? ""
-  const products = allProducts.filter((product) => product.name.toLowerCase().includes(query.toLowerCase()))
+  const query = searchParams.q ?? "";
+  const products = allProducts.filter((product) =>
+    product.name.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Search Results for "{query}"</h1>
+      <h1 className="text-3xl font-bold mb-8">
+        Search Results for &quot;{query}&quot;
+      </h1>
       {products.length === 0 ? (
         <p>No products found.</p>
       ) : (
@@ -33,7 +37,7 @@ export default function SearchPage({
           {products.map((product) => (
             <ProductCard
               key={product._id}
-              _id={product._id}
+              id={product._id}
               name={product.name}
               price={product.price}
               image={product.image}
@@ -45,6 +49,5 @@ export default function SearchPage({
         </div>
       )}
     </div>
-  )
+  );
 }
-

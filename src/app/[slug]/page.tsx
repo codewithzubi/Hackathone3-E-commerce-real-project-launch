@@ -3,8 +3,18 @@ import Image from "next/image"
 import { ProductCard } from "@/components/ui/product-card"
 import AddToCartButton from "@/components/AddToCartButton"
 
-async function getProduct(slug: string) {
-  const product = await client.fetch(
+// Define types for the product
+interface Product {
+  _id: string
+  name: string
+  price: number
+  description: string
+  image: string
+  slug: string
+}
+
+async function getProduct(slug: string): Promise<Product | null> {
+  const product: Product | null = await client.fetch(
     `
     *[_type == "product" && slug.current == $slug][0] {
       _id,
@@ -15,13 +25,13 @@ async function getProduct(slug: string) {
       "slug": slug.current
     }
   `,
-    { slug },
+    { slug }
   )
   return product
 }
 
-async function getRelatedProducts() {
-  const products = await client.fetch(`
+async function getRelatedProducts(): Promise<Product[]> {
+  const products: Product[] = await client.fetch(`
     *[_type == "product"][0...4] {
       _id,
       name,
@@ -67,12 +77,11 @@ export default async function ProductPage({ params }: { params: { slug: string }
       <div>
         <h2 className="text-2xl font-bold mb-8">Related Products</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {relatedProducts.map((relatedProduct:any) => (
-            <ProductCard key={relatedProduct._id} {...relatedProduct} />
+          {relatedProducts.map((relatedProduct) => (
+            <ProductCard id={""} category={""} key={relatedProduct._id} {...relatedProduct} />
           ))}
         </div>
       </div>
     </div>
   )
 }
-

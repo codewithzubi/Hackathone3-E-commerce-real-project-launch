@@ -36,6 +36,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
   const [selectedImage, setSelectedImage] = useState(0)
   const addItem = useCart((state) => state.addItem)
 
+  console.log(params)
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid md:grid-cols-2 gap-8 mb-16">
@@ -98,7 +100,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         <h2 className="text-2xl font-bold mb-8">Featured Products</h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {relatedProducts.map((product) => (
-            <ProductCard key={product.id} {...product} />
+            <ProductCard category={""} key={product.id} {...product} />
           ))}
         </div>
       </div>

@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useMemo } from "react"
+import Image from "next/image"
 import { ProductCard } from "@/components/ui/product-card"
-import { Button } from "@/components/ui/button"
 import { Pagination } from "@/components/ui/pagination"
 
 const products = [
@@ -163,7 +163,7 @@ export default function ProductsPage() {
         {paginatedProducts.map((product) => (
           <ProductCard
             key={product._id}
-            _id={product._id}
+            id={product._id}
             name={product.name}
             price={product.price}
             image={product.image}
@@ -193,11 +193,14 @@ export default function ProductsPage() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="aspect-square relative overflow-hidden rounded-lg">
-              <img
-                src={`/img6.png`}
-                alt={`Instagram post ${i + 1}`}
-                className="object-cover w-full h-full hover:scale-110 transition-transform duration-300"
+
+              <Image
+               src={`/img6.png`}
+               alt={`Instagram post ${i + 1}`}
+               className="object-cover w-full h-full hover:scale-110 transition-transform duration-300"
               />
+
+             
             </div>
           ))}
         </div>

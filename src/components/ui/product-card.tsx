@@ -13,6 +13,7 @@ interface ProductCardProps {
   name: string
   price: number
   image: string
+  category:string
   isNew?: boolean
   isSale?: boolean
 }

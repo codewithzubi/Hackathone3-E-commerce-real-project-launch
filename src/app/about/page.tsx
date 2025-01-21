@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
@@ -16,7 +16,7 @@ export default function AboutPage() {
             exceptional customer service.
           </p>
           <p>
-            At EStore, we believe that everyone deserves to live in a space they love. That's why we work tirelessly to
+            At EStore, we believe that everyone deserves to live in a space they love. That&apos;s why we work tirelessly to
             curate a collection of furniture that combines comfort, style, and durability. From cozy sofas to elegant
             dining sets, we have everything you need to transform your living space.
           </p>
@@ -26,6 +26,5 @@ export default function AboutPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-
