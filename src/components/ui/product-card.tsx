@@ -9,16 +9,17 @@ import { useWishlist } from "@/lib/wishlistStore"
 import { toast } from "react-hot-toast"
 
 interface ProductCardProps {
-  id: string
+  _id: string
   name: string
   price: number
-  image: string
-  category:string
+  imageUrl: string
+  slug: string
+  category: string
   isNew?: boolean
   isSale?: boolean
 }
 
-export function ProductCard({ id, name, price, image, isNew, isSale }: ProductCardProps) {
+export function ProductCard({ _id, name, price, imageUrl, slug, category, isNew, isSale }: ProductCardProps) {
   const addItem = useCart((state) => state.addItem)
   const addToWishlist = useWishlist((state) => state.addItem)
 
@@ -26,7 +27,7 @@ export function ProductCard({ id, name, price, image, isNew, isSale }: ProductCa
     <div className="group relative">
       <div className="aspect-square overflow-hidden rounded-lg bg-gray-100">
         <Image
-          src={typeof image === "string" ? image : "/placeholder.svg"}
+          src={imageUrl || "/placeholder.svg"}
           alt={name}
           width={500}
           height={500}
@@ -38,7 +39,7 @@ export function ProductCard({ id, name, price, image, isNew, isSale }: ProductCa
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-gray-700">
-            <Link href={`/products/${id}`}>
+            <Link href={`/products/${slug}`}>
               <span aria-hidden="true" className="absolute inset-0" />
               {name}
             </Link>
@@ -50,7 +51,7 @@ export function ProductCard({ id, name, price, image, isNew, isSale }: ProductCa
             variant="ghost"
             size="icon"
             onClick={() => {
-              addItem({ id, name, price, image, quantity: 1 })
+              addItem({ id: _id, name, price, image: imageUrl, quantity: 1 })
               toast.success(`${name} added to cart`)
             }}
             className="relative z-10"
@@ -61,7 +62,7 @@ export function ProductCard({ id, name, price, image, isNew, isSale }: ProductCa
             variant="ghost"
             size="icon"
             onClick={() => {
-              addToWishlist({ id, name, price, image })
+              addToWishlist({ id: _id, name, price, image: imageUrl })
               toast.success(`${name} added to wishlist`)
             }}
             className="relative z-10"

@@ -6,6 +6,7 @@ import { ShoppingCart, Menu, X, User } from "lucide-react"
 import { useCart } from "@/lib/store"
 import { SearchBar } from "./SearchBar"
 import { useRouter } from "next/navigation"
+import Image from "next/image"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -31,9 +32,20 @@ export default function Header() {
     <header className="fixed top-0 w-full bg-white shadow-md z-50">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
+         <div className="flex items-center space-x-3">
+
+          <Image
+            className="w-[40px] h-[40px] overflow-hidden flex-shrink-0"
+            width={40}
+            height={40}
+            alt=""
+            src="/Logo Icon.jpg"
+          />
+
           <Link href="/" className="text-2xl font-bold text-primary">
-            EStore
+            Comforty
           </Link>
+          </div>
 
           {/* Mobile Menu Button */}
           <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>

@@ -159,20 +159,22 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {paginatedProducts.map((product) => (
-          <ProductCard
-            key={product._id}
-            id={product._id}
-            name={product.name}
-            price={product.price}
-            image={product.image}
-            category={product.category}
-            isNew={product.isNew}
-            isSale={product.isSale}
-          />
-        ))}
-      </div>
+     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+  {
+  relatedProducts.map((relatedProduct:any) => (
+    <ProductCard 
+      key={relatedProduct._id} 
+      _id={relatedProduct._id} 
+      name={relatedProduct.name} 
+      price={relatedProduct.price} 
+      imageUrl={relatedProduct.imageUrl} 
+      category={relatedProduct.category} 
+      isNew={relatedProduct.isNew} 
+      isSale={relatedProduct.isSale} 
+      slug={relatedProduct.slug} // Make sure to pass the slug here
+    />
+  ))}
+</div>
 
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
 
@@ -197,6 +199,8 @@ export default function ProductsPage() {
               <Image
                src={`/img6.png`}
                alt={`Instagram post ${i + 1}`}
+               width={100}
+               height={100}
                className="object-cover w-full h-full hover:scale-110 transition-transform duration-300"
               />
 
