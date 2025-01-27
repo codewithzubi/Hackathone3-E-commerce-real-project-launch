@@ -1,101 +1,206 @@
-import Image from "next/image";
+import Image from "next/image"
+import Link from "next/link"
+import { ProductCard } from "@/components/ui/product-card"
+import { client } from "@/lib/sanity"
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+// Queries remain the same
+async function getFeaturedProducts() {
+  const query = `*[_type == "products"][0..3]{
+  name,
+  "slug": slug.current,
+  "imageUrl": image.asset->url,
+  category,
+  price,
+  oldPrice,
+  description,
+  colors[],
+  sizes[],
+  isFeatured,
+  isNew,
+  isSale
+}`
+  return client.fetch(query)
 }
+
+async function getcategoriesProducts() {
+  const query = `
+  *[_type == "categories"]{
+    title,
+    "image": image.asset->url,
+    products
+  }
+  `
+  return client.fetch(query)
+}
+
+async function getProducts() {
+  const query = `*[_type == "products"][0...8]{
+  name,
+  "slug": slug.current,
+  "imageUrl": image.asset->url,
+  category,
+  price,
+  oldPrice,
+  description,
+  colors[],
+  sizes[],
+  isFeatured,
+  isNew,
+  isSale
+}`
+  return client.fetch(query)
+}
+
+export default async function Home() {
+  const featuredProducts = await getFeaturedProducts()
+  const categories = await getcategoriesProducts()
+  const products = await getProducts()
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Existing sections above remain unchanged */}
+    
+      <section className="relative bg-gray-100 py-16">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2 mb-8 md:mb-0">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              Discover Stylish Furniture For Your Home
+            </h1>
+            <p className="text-lg text-gray-600 mb-8">Transform your living space with our curated collection</p>
+            <Link
+              href="/products"
+              className="bg-teal-500 text-white px-8 py-3 rounded-md hover:bg-teal-600 transition-colors"
+            >
+              Shop Now
+            </Link>
+          </div>
+          <div className="md:w-1/2">
+            <Image
+              src="/chair.png"
+              alt="Stylish Chair"
+              width={600}
+              height={600}
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+      </section>
+
+
+       {/* Logos Section */}
+       <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap justify-center items-center gap-8">
+            {[1, 2, 3, 4, 5, 6, 7].map((index) => (
+              <Image
+                key={index}
+                src={`/Logo1-${index}.png`}
+                alt={`Brand Logo ${index}`}
+                width={100}
+                height={50}
+                className="hover:grayscale-0 transition-all"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Featured Products</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProducts.map((product:any) => (
+              <ProductCard key={product._id} {...product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Top Categories */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Top Categories</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {categories.map((category: any) => (
+              <Link key={category.title} href={`/category/${category.title.toLowerCase().replace(" ", "-")}`}>
+                <div className="relative overflow-hidden rounded-lg aspect-[4/3] group">
+                  <Image
+                    src={category.image}
+                    alt={category.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-end p-6">
+                    <h3 className="text-xl font-semibold text-white">{category.title}</h3>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Explore New and Popular Styles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {["Modern", "Contemporary", "Minimalist"].map((style, index) => (
+              <div key={style} className="relative overflow-hidden rounded-lg aspect-[3/4] group">
+                <Image
+                  src={`/style-${index + 1}.png`}
+                  alt={style}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-6">
+                  <h3 className="text-xl font-semibold text-white mb-2">{style}</h3>
+                  <Link href={`/style/${style.toLowerCase()}`} className="text-white underline">
+                    Shop Now
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Products */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Products</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.map((product:any) => (
+              <ProductCard key={product._id} {...product} />
+            ))}
+          </div>
+          <div className="text-center mt-12">
+            <Link
+              href="/products"
+              className="bg-teal-500 text-white px-8 py-3 rounded-md hover:bg-teal-600 transition-colors"
+            >
+              View All Products
+            </Link>
+          </div>
+        </div>
+      </section>
+
+     
+
+
+      {/* Existing sections below remain unchanged */}
+    </div>
+  )
+}
+
+
+
+
+
+
+
+
+
+
+

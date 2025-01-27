@@ -1,0 +1,238 @@
+/* ContactUs.module.css */
+
+/* General Styles */
+.container {
+    width: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.maindiv {
+    width: 100%;
+    max-width: 1200px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.topitems {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.topitems h1 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.topitems p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #555;
+    max-width: 700px;
+}
+
+.belowitems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+.leftdiv,
+.rightdiv {
+    flex: 1;
+    min-width: 320px;
+    max-width: 600px;
+}
+
+.leftitems {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.two {
+    display: flex;
+    flex-direction: column;
+}
+
+.two h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.two p {
+    font-size: 14px;
+    color: #555;
+}
+
+.rightdiv form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.labinput label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.labinput input,
+.labinput textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.labinput textarea {
+    resize: none;
+}
+
+.labinput button {
+    width: 100%;
+    max-width: 200px;
+    padding: 10px;
+    background: #029fae;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+/* Base General Styles for three section */
+.belowthree {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #f4f4f4;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.threeitems {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.itm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    width: auto;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.itm i {
+    font-size: 40px;
+    color: black;
+}
+
+.itm h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.itm p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Responsive Styles */
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+    .itm i {
+        font-size: 30px;
+    }
+
+    .itm h2 {
+        font-size: 18px;
+    }
+
+    .itm p {
+        font-size: 12px;
+    }
+
+    .threeitems {
+        flex-direction: column;
+    }
+
+    .itm {
+        width: 90%;
+    }
+}
+
+/* Tablet Styles */
+@media (min-width: 481px) and (max-width: 768px) {
+    .itm i {
+        font-size: 35px;
+    }
+
+    .itm h2 {
+        font-size: 19px;
+    }
+
+    .itm p {
+        font-size: 13px;
+    }
+
+    .threeitems {
+        flex-direction: row;
+    }
+}
+
+/* Laptop Styles */
+@media (min-width: 769px) and (max-width: 1200px) {
+    .itm i {
+        font-size: 40px;
+    }
+
+    .itm h2 {
+        font-size: 20px;
+    }
+
+    .itm p {
+        font-size: 14px;
+    }
+}
+
+/* Desktop / Large Screens */
+@media (min-width: 1201px) {
+    .itm i {
+        font-size: 45px;
+    }
+
+    .itm h2 {
+        font-size: 22px;
+    }
+
+    .itm p {
+        font-size: 15px;
+    }
+}
