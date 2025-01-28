@@ -1,14 +1,17 @@
 import { ProductCard } from "@/components/ui/product-card"
 import { client } from "@/lib/sanity"
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationEllipsis,
-  PaginationPrevious,
-  PaginationNext,
-} from "@/components/ui/pagination"
+import Image from "next/image"
+import type { Product } from "../../types/product"
+
+// import {
+//   Pagination,
+//   PaginationContent,
+//   PaginationItem,
+//   PaginationLink,
+//   PaginationEllipsis,
+//   PaginationPrevious,
+//   PaginationNext,
+// } from "@/components/ui/pagination"
 
 async function getProducts() {
   const query = `*[_type == "product"]{
@@ -40,7 +43,7 @@ export default async function ProductsPage() {
       <h1 className="text-3xl font-bold mb-8">All Products</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.map((product:any) => (
+        {products.map((product:Product) => (
           <ProductCard
             key={product._id}
             _id={product._id}
@@ -50,8 +53,7 @@ export default async function ProductsPage() {
             slug={product.slug}
             category={product.category}
             isNew={product.isNew}
-            isSale={product.isSale}
-          />
+            isSale={product.isSale} description={""}          />
         ))}
       </div>
 
@@ -77,7 +79,7 @@ export default async function ProductsPage() {
   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
     {images.map((image, i) => (
       <div key={i} className="aspect-square relative overflow-hidden rounded-lg">
-        <img
+        <Image
           src={`/img${i + 1}.png`} // Dynamic image source
           alt={`Instagram post ${i + 1}`}
           className="object-cover w-full h-full hover:scale-110 transition-transform duration-300"

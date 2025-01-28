@@ -1,5 +1,3 @@
-"use client"
-
 import Image from "next/image"
 import Link from "next/link"
 import { ShoppingCart, Heart } from "lucide-react"
@@ -7,20 +5,9 @@ import { Button } from "@/components/ui/button"
 import { useCart } from "@/lib/store"
 import { useWishlist } from "@/lib/wishlistStore"
 import { toast } from "react-hot-toast"
+import type { Product } from "../../types/product"
 
-interface ProductCardProps {
-  _id: string
-  name: string
-  price: number
-  oldPrice?: number
-  imageUrl: string
-  slug: string
-  category: string
-  isNew?: boolean
-  isSale?: boolean
-}
-
-export function ProductCard({ _id, name, price, oldPrice, imageUrl, slug, category, isNew, isSale }: ProductCardProps) {
+export function ProductCard({ _id, name, price, oldPrice, imageUrl, slug, isNew, isSale }: Product) {
   const addItem = useCart((state) => state.addItem)
   const addToWishlist = useWishlist((state) => state.addItem)
 

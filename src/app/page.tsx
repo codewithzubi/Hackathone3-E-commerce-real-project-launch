@@ -2,64 +2,79 @@ import Image from "next/image"
 import Link from "next/link"
 import { ProductCard } from "@/components/ui/product-card"
 import { client } from "@/lib/sanity"
+import type { Product, Category } from "../types/product"
 
-// Queries remain the same
-async function getFeaturedProducts() {
-  const query = `*[_type == "products"][0..3]{
-  name,
-  "slug": slug.current,
-  "imageUrl": image.asset->url,
-  category,
-  price,
-  oldPrice,
-  description,
-  colors[],
-  sizes[],
-  isFeatured,
-  isNew,
-  isSale
-}`
+async function getFeaturedProducts(): Promise<Product[]> {
+  const query = `*[_type == "products" && isFeatured == true][0..3]{
+    _id,
+    name,
+    "slug": slug.current,
+    "imageUrl": image.asset->url,
+    category,
+    price,
+    oldPrice,
+    description,
+    colors,
+    sizes,
+    isFeatured,
+    isNew,
+    isSale
+  }`
   return client.fetch(query)
 }
 
-async function getcategoriesProducts() {
+async function getCategoriesProducts(): Promise<Category[]> {
   const query = `
   *[_type == "categories"]{
     title,
     "image": image.asset->url,
-    products
+    "products": products[]->{
+      _id,
+      name,
+      "slug": slug.current,
+      "imageUrl": image.asset->url,
+      category,
+      price,
+      oldPrice,
+      description,
+      colors,
+      sizes,
+      isFeatured,
+      isNew,
+      isSale
+    }
   }
   `
   return client.fetch(query)
 }
 
-async function getProducts() {
+async function getProducts(): Promise<Product[]> {
   const query = `*[_type == "products"][0...8]{
-  name,
-  "slug": slug.current,
-  "imageUrl": image.asset->url,
-  category,
-  price,
-  oldPrice,
-  description,
-  colors[],
-  sizes[],
-  isFeatured,
-  isNew,
-  isSale
-}`
+    _id,
+    name,
+    "slug": slug.current,
+    "imageUrl": image.asset->url,
+    category,
+    price,
+    oldPrice,
+    description,
+    colors,
+    sizes,
+    isFeatured,
+    isNew,
+    isSale
+  }`
   return client.fetch(query)
 }
 
 export default async function Home() {
   const featuredProducts = await getFeaturedProducts()
-  const categories = await getcategoriesProducts()
+  const categories = await getCategoriesProducts()
   const products = await getProducts()
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Existing sections above remain unchanged */}
-    
+      {/* Hero Section */}
       <section className="relative bg-gray-100 py-16">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
@@ -75,20 +90,13 @@ export default async function Home() {
             </Link>
           </div>
           <div className="md:w-1/2">
-            <Image
-              src="/chair.png"
-              alt="Stylish Chair"
-              width={600}
-              height={600}
-              className="rounded-lg"
-            />
+            <Image src="/chair.png" alt="Stylish Chair" width={600} height={600} className="rounded-lg" />
           </div>
         </div>
       </section>
 
-
-       {/* Logos Section */}
-       <section className="py-12 bg-gray-50">
+      {/* Logos Section */}
+      <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap justify-center items-center gap-8">
             {[1, 2, 3, 4, 5, 6, 7].map((index) => (
@@ -105,12 +113,12 @@ export default async function Home() {
         </div>
       </section>
 
-
+      {/* Featured Products */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Featured Products</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product:any) => (
+            {featuredProducts.map((product: Product) => (
               <ProductCard key={product._id} {...product} />
             ))}
           </div>
@@ -122,11 +130,11 @@ export default async function Home() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Top Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {categories.map((category: any) => (
+            {categories.map((category: Category) => (
               <Link key={category.title} href={`/category/${category.title.toLowerCase().replace(" ", "-")}`}>
                 <div className="relative overflow-hidden rounded-lg aspect-[4/3] group">
                   <Image
-                    src={category.image}
+                    src={category.image || "/placeholder.svg"}
                     alt={category.title}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -141,7 +149,7 @@ export default async function Home() {
         </div>
       </section>
 
-
+      {/* Explore New and Popular Styles */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Explore New and Popular Styles</h2>
@@ -171,7 +179,7 @@ export default async function Home() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Our Products</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product:any) => (
+            {products.map((product: Product) => (
               <ProductCard key={product._id} {...product} />
             ))}
           </div>
@@ -185,22 +193,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
-     
-
-
-      {/* Existing sections below remain unchanged */}
     </div>
   )
 }
-
-
-
-
-
-
-
-
-
-
 

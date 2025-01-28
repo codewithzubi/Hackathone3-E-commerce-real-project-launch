@@ -92,7 +92,7 @@ const ContactUs = () => {
                 <textarea
                   placeholder="Hi! I'd like to ask about..."
                   className="w-full p-3 border border-gray-300 rounded-lg focus:outline-teal-500 resize-none"
-                  rows="4"
+                  
                 ></textarea>
               </div>
               <button className="w-full max-w-[200px] p-3 bg-teal-600 text-white font-bold rounded-lg hover:bg-teal-700 transition">
