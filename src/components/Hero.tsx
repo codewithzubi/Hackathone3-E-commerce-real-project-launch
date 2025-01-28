@@ -100,7 +100,7 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product) => (
-              <ProductCard category={""} key={product.id} {...product} />
+              <ProductCard _id={""} slug={""} imageUrl={""} description={""} category={""} key={product.id} {...product} />
             ))}
           </div>
         </div>
