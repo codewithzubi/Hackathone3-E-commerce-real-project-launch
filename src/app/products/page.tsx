@@ -14,7 +14,7 @@ import type { Product } from "../../types/product"
 // } from "@/components/ui/pagination"
 
 async function getProducts() {
-  const query = `*[_type == "product"]{
+  const query = `*[_type == "products"]{
     title, 
     price, 
     priceWithoutDiscount, 
