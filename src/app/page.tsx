@@ -5,20 +5,19 @@ import { client } from "@/lib/sanity"
 import type { Product, Category } from "../types/product"
 
 async function getFeaturedProducts(): Promise<Product[]> {
-  const query = `*[_type == "products" && isFeatured == true][0..3]{
-    _id,
-    name,
-    "slug": slug.current,
-    "imageUrl": image.asset->url,
-    category,
-    price,
-    oldPrice,
-    description,
-    colors,
-    sizes,
-    isFeatured,
-    isNew,
-    isSale
+  const query = `*[_type == "products"][0...4]{
+    title, 
+    price, 
+    priceWithoutDiscount, 
+    badge, 
+    "imageUrl": image.asset->url, 
+    category->{
+      _id, 
+      title 
+    },
+    description, 
+    inventory, 
+    tags 
   }`
   return client.fetch(query)
 }
