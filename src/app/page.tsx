@@ -5,7 +5,7 @@ import { client } from "@/lib/sanity"
 import type { Product, Category } from "@/types/product"
 
 async function getFeaturedProducts(): Promise<Product[]> {
-  const query = `*[_type == "products" && isFeatured == true][0..3]{
+  const query = `*[_type == "products"][0...8]{
     _id,
     name,
     "slug": slug.current,
@@ -91,11 +91,11 @@ export default async function Home() {
           </div>
           <div className="md:w-1/2">
             <Image
-              src="/hero-chair.jpg"
+              src="/chair.png"
               alt="Stylish Chair"
               width={600}
               height={600}
-              className="rounded-lg shadow-lg"
+              
             />
           </div>
         </div>

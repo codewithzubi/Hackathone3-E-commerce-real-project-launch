@@ -5,19 +5,21 @@ import AddToCartButton from "@/components/AddToCartButton"
 import AddToWishlistButton from "@/components/AddToWishlistButton"
 
 async function getProduct(slug: string) {
-  const query = `*[_type == "product"] {
+  const query = `*[_type == "products"]{
     _id,
-    name,
+    title,
     price,
-    oldPrice,
-    description,
+    priceWithoutDiscount,
+    badge,
     "imageUrl": image.asset->url,
-    "images": coalesce(images[], [{"asset": {"url": image.asset->url}}]).asset->url,
-    category,
-    isNew,
-    isSale,
-    colors,
-    sizes
+    "slug": slug.current,
+    category->{
+      _id,
+      title
+    },
+    description,
+    inventory,
+    tags
   }`
 
   const product = await client.fetch(query, { slug })
