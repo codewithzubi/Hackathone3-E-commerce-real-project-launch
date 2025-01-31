@@ -16,16 +16,16 @@ export default function SearchResults({ products }: { products: Product[] }) {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {products.map((product) => (
         <ProductCard
-              key={product._id}
-              _id={product._id}
-              name={product.name}
-              price={product.price}
-              oldPrice={product.oldPrice}
-              imageUrl={product.imageUrl}
-              slug={product.slug}
-              category={product.category}
-              isNew={product.isNew}
-              isSale={product.isSale} description={""}        />
+          key={product._id}
+          _id={product._id}
+          name={product.name}
+          price={product.price}
+          oldPrice={product.oldPrice}
+          imageUrl={product.imageUrl}
+          slug={product.slug}
+          category={product.category}
+          isNew={product.isNew}
+          isSale={product.isSale} description={""} title={""}        />
       ))}
     </div>
   )

@@ -1,4 +1,5 @@
 "use client"
+
 import Image from "next/image"
 import Link from "next/link"
 import { ShoppingCart, Heart } from "lucide-react"
@@ -11,6 +12,9 @@ import type { Product } from "@/types/product"
 export function ProductCard({ _id, title, price, priceWithoutDiscount, badge, imageUrl, slug, category }: Product) {
   const addItem = useCart((state) => state.addItem)
   const addToWishlist = useWishlist((state) => state.addItem)
+
+
+  console.log(category)
 
   return (
     <div className="group relative">
@@ -35,7 +39,7 @@ export function ProductCard({ _id, title, price, priceWithoutDiscount, badge, im
         <div className="flex justify-between items-center">
           <div>
             <p className="text-sm font-medium text-gray-900">${price}</p>
-            {priceWithoutDiscount && priceWithoutDiscount > price && (
+            {priceWithoutDiscount && typeof priceWithoutDiscount === "number" && priceWithoutDiscount > price && (
               <p className="text-sm text-gray-500 line-through">${priceWithoutDiscount}</p>
             )}
           </div>

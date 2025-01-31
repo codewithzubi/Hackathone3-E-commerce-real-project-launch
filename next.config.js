@@ -1,10 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-      domains: ["cdn.sanity.io", "hebbkx1anhila5yf.public.blob.vercel-storage.com"],
-    },
-  }
-  
-  module.exports = nextConfig
-  
-  
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+      },
+      {
+        protocol: "https",
+        hostname: "hebbkx1anhila5yf.public.blob.vercel-storage.com",
+      },
+    ],
+  },
+}
+
+module.exports = nextConfig
+

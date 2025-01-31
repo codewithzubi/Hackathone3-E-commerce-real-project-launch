@@ -2,22 +2,23 @@ import Image from "next/image"
 import Link from "next/link"
 import { ProductCard } from "@/components/ui/product-card"
 import { client } from "@/lib/sanity"
-import type { Product, Category } from "../types/product"
+import type { Product, Category } from "@/types/product"
 
 async function getFeaturedProducts(): Promise<Product[]> {
-  const query = `*[_type == "products"][0...4]{
-    title, 
-    price, 
-    priceWithoutDiscount, 
-    badge, 
-    "imageUrl": image.asset->url, 
-    category->{
-      _id, 
-      title 
-    },
-    description, 
-    inventory, 
-    tags 
+  const query = `*[_type == "products" && isFeatured == true][0..3]{
+    _id,
+    name,
+    "slug": slug.current,
+    "imageUrl": image.asset->url,
+    category,
+    price,
+    oldPrice,
+    description,
+    colors,
+    sizes,
+    isFeatured,
+    isNew,
+    isSale
   }`
   return client.fetch(query)
 }
@@ -89,25 +90,13 @@ export default async function Home() {
             </Link>
           </div>
           <div className="md:w-1/2">
-            <Image src="/chair.png" alt="Stylish Chair" width={600} height={600} className="rounded-lg" />
-          </div>
-        </div>
-      </section>
-
-      {/* Logos Section */}
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center items-center gap-8">
-            {[1, 2, 3, 4, 5, 6, 7].map((index) => (
-              <Image
-                key={index}
-                src={`/Logo1-${index}.png`}
-                alt={`Brand Logo ${index}`}
-                width={100}
-                height={50}
-                className="hover:grayscale-0 transition-all"
-              />
-            ))}
+            <Image
+              src="/hero-chair.jpg"
+              alt="Stylish Chair"
+              width={600}
+              height={600}
+              className="rounded-lg shadow-lg"
+            />
           </div>
         </div>
       </section>
@@ -156,7 +145,7 @@ export default async function Home() {
             {["Modern", "Contemporary", "Minimalist"].map((style, index) => (
               <div key={style} className="relative overflow-hidden rounded-lg aspect-[3/4] group">
                 <Image
-                  src={`/style-${index + 1}.png`}
+                  src={`/style-${index + 1}.jpg`}
                   alt={style}
                   fill
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -178,7 +167,7 @@ export default async function Home() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Our Products</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product: Product) => (
+            {products.map((product) => (
               <ProductCard key={product._id} {...product} />
             ))}
           </div>
@@ -190,6 +179,44 @@ export default async function Home() {
               View All Products
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Logos Section */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap justify-center items-center gap-8">
+            {[1, 2, 3, 4, 5, 6, 7].map((index) => (
+              <Image
+                key={index}
+                src={`/logo-${index}.png`}
+                alt={`Brand Logo ${index}`}
+                width={100}
+                height={50}
+                className="grayscale hover:grayscale-0 transition-all"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section className="py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-8">Subscribe To Our Newsletter</h2>
+          <form className="max-w-md mx-auto flex gap-4">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+            <button
+              type="submit"
+              className="bg-teal-500 text-white px-6 py-2 rounded-md hover:bg-teal-600 transition-colors"
+            >
+              Subscribe
+            </button>
+          </form>
         </div>
       </section>
     </div>

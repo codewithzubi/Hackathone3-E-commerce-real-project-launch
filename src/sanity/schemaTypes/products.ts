@@ -46,6 +46,16 @@ export const productSchema = defineType({
       title: "Inventory Management",
       type: "number",
     },
+
+    {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
+    },
     {
       name: "tags",
       title: "Tags",
