@@ -5,7 +5,8 @@ import AddToCartButton from "@/components/AddToCartButton"
 import AddToWishlistButton from "@/components/AddToWishlistButton"
 
 async function getProduct(slug: string) {
-  const query = `*[_type == "products"]{
+  // console.log("object", slug)
+  const query = `*[_type == "products"  && slug.current == '${slug}' ][0]{
     _id,
     title,
     price,
@@ -28,11 +29,13 @@ async function getProduct(slug: string) {
     notFound()
   }
 
+
   return product
 }
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
   const product = await getProduct(params.slug)
+  console.log("sdas",product)
 
   return (
     <div className="container mx-auto px-4 py-8">
