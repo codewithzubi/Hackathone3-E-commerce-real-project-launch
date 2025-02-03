@@ -58,11 +58,13 @@ export function CheckoutForm() {
       })
 
       if (response.ok) {
+        const data = await response.json()
         clearCart()
         toast.success("Order placed successfully!")
-        router.push("/order-confirmation")
+        router.push(`/order-confirmation/${data.orderId}`)
       } else {
-        toast.error("Failed to place order. Please try again.")
+        const errorData = await response.json()
+        toast.error(errorData.error || "Failed to place order. Please try again.")
       }
     } catch (error) {
       console.error("Error:", error)
@@ -74,35 +76,35 @@ export function CheckoutForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <Label htmlFor="name">Name</Label>
-        <Input id="name" name="name" value={formData.name} onChange={handleChange} required />
+        <Input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
       </div>
       <div>
         <Label htmlFor="email">Email</Label>
-        <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required />
+        <Input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
       </div>
       <div>
         <Label htmlFor="phone">Phone</Label>
-        <Input id="phone" name="phone" value={formData.phone} onChange={handleChange} required />
+        <Input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} />
       </div>
       <div>
         <Label htmlFor="street">Street</Label>
-        <Input id="street" name="street" value={formData.street} onChange={handleChange} required />
+        <Input type="text" id="street" name="street" value={formData.street} onChange={handleChange} />
       </div>
       <div>
         <Label htmlFor="city">City</Label>
-        <Input id="city" name="city" value={formData.city} onChange={handleChange} required />
+        <Input type="text" id="city" name="city" value={formData.city} onChange={handleChange} />
       </div>
       <div>
         <Label htmlFor="state">State</Label>
-        <Input id="state" name="state" value={formData.state} onChange={handleChange} required />
+        <Input type="text" id="state" name="state" value={formData.state} onChange={handleChange} />
       </div>
       <div>
-        <Label htmlFor="zipCode">ZIP Code</Label>
-        <Input id="zipCode" name="zipCode" value={formData.zipCode} onChange={handleChange} required />
+        <Label htmlFor="zipCode">Zip Code</Label>
+        <Input type="text" id="zipCode" name="zipCode" value={formData.zipCode} onChange={handleChange} />
       </div>
       <div>
         <Label htmlFor="country">Country</Label>
-        <Input id="country" name="country" value={formData.country} onChange={handleChange} required />
+        <Input type="text" id="country" name="country" value={formData.country} onChange={handleChange} />
       </div>
       <Button type="submit" className="w-full">
         Place Order
