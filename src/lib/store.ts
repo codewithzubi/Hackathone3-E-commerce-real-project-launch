@@ -2,6 +2,8 @@ import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
 interface CartItem {
+  _id: any
+  imageUrl: string
   id: string
   name: string
   price: number

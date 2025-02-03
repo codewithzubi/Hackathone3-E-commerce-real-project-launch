@@ -1,33 +1,26 @@
 "use client"
 
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { ShoppingCart, Heart, Menu, X, User } from "lucide-react"
 import { useCart } from "@/lib/store"
 import { useWishlist } from "@/lib/wishlistStore"
 import { SearchBar } from "./SearchBar"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
+import { useUser } from "@/lib/userStore"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [user, setUser] = useState<{ id: number; email: string } | null>(null)
+  const { user, logout } = useUser()
   const cartItems = useCart((state) => state.items)
   const wishlistItems = useWishlist((state) => state.items)
   const cartQuantity = cartItems.reduce((total, item) => total + item.quantity, 0)
   const wishlistQuantity = wishlistItems.length
   const router = useRouter()
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user")
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
-    }
-  }, [])
-
   const handleLogout = () => {
-    localStorage.removeItem("user")
-    setUser(null)
+    logout()
     router.push("/")
   }
 
@@ -35,17 +28,11 @@ export default function Header() {
     <header className="w-full bg-white shadow-md z-50">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between">
-        <div className="flex items-center space-x-2">
-           <Image
-           src="/Logo Icon.jpg"
-           alt="Stylish Chair"
-           width={40}
-           height={50}
-           className="rounded-lg"
-            />
-          <Link href="/" className="text-2xl font-bold text-primary">
-          Comforty
-          </Link>
+          <div className="flex items-center space-x-2">
+            <Image src="/Logo Icon.jpg" alt="Stylish Chair" width={40} height={50} className="rounded-lg" />
+            <Link href="/" className="text-2xl font-bold text-primary">
+              Comforty
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -88,9 +75,12 @@ export default function Header() {
               <div className="relative group">
                 <button className="flex items-center space-x-1">
                   <User size={24} />
-                  <span>{user.email}</span>
+                  <span>{user.name}</span>
                 </button>
                 <div className="absolute right-0 w-48 py-2 mt-2 bg-white rounded-md shadow-xl hidden group-hover:block">
+                  <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Profile
+                  </Link>
                   <Link href="/wishlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     Wishlist
                   </Link>
@@ -136,6 +126,9 @@ export default function Header() {
                 </Link>
                 {user ? (
                   <>
+                    <Link href="/profile" className="hover:text-primary transition-colors">
+                      Profile
+                    </Link>
                     <Link href="/wishlist" className="hover:text-primary transition-colors">
                       Wishlist
                     </Link>
