@@ -2,7 +2,7 @@ import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
 interface CartItem {
-  _id: any
+  _id: number
   imageUrl: string
   id: string
   name: string

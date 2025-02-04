@@ -54,6 +54,8 @@ export function ProductCard({ _id, title, price, priceWithoutDiscount, badge, im
                   price,
                   image: imageUrl,
                   quantity: 1,
+                  _id: 0,
+                  imageUrl: ""
                 })
                 toast.success(`${title} added to cart`)
               }}

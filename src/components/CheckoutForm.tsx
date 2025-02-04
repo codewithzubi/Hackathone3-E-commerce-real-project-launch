@@ -76,35 +76,35 @@ export function CheckoutForm() {
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <Label htmlFor="name">Name</Label>
-        <Input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
+        <Input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
       </div>
       <div>
         <Label htmlFor="email">Email</Label>
-        <Input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
+        <Input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
       </div>
       <div>
         <Label htmlFor="phone">Phone</Label>
-        <Input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} />
+        <Input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} required />
       </div>
       <div>
         <Label htmlFor="street">Street</Label>
-        <Input type="text" id="street" name="street" value={formData.street} onChange={handleChange} />
+        <Input type="text" id="street" name="street" value={formData.street} onChange={handleChange} required />
       </div>
       <div>
         <Label htmlFor="city">City</Label>
-        <Input type="text" id="city" name="city" value={formData.city} onChange={handleChange} />
+        <Input type="text" id="city" name="city" value={formData.city} onChange={handleChange} required />
       </div>
       <div>
         <Label htmlFor="state">State</Label>
-        <Input type="text" id="state" name="state" value={formData.state} onChange={handleChange} />
+        <Input type="text" id="state" name="state" value={formData.state} onChange={handleChange} required />
       </div>
       <div>
         <Label htmlFor="zipCode">Zip Code</Label>
-        <Input type="text" id="zipCode" name="zipCode" value={formData.zipCode} onChange={handleChange} />
+        <Input type="text" id="zipCode" name="zipCode" value={formData.zipCode} onChange={handleChange} required />
       </div>
       <div>
         <Label htmlFor="country">Country</Label>
-        <Input type="text" id="country" name="country" value={formData.country} onChange={handleChange} />
+        <Input type="text" id="country" name="country" value={formData.country} onChange={handleChange} required />
       </div>
       <Button type="submit" className="w-full">
         Place Order

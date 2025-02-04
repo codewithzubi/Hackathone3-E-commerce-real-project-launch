@@ -8,8 +8,12 @@ export async function verifyAuth(token: string) {
     return verified.payload
   } catch (err) {
     throw new Error("Invalid token")
+    console.log(err)
   }
+
+
 }
+
 
 export async function getUser(request: Request) {
   const token = request.headers.get("Authorization")?.split(" ")[1]

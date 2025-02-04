@@ -35,8 +35,13 @@ export function ReviewForm({ productId }: { productId: string }) {
       toast.success("Review submitted successfully")
       setRating(0)
       setComment("")
-    } catch (error) {
-      toast.error(error.message)
+    } catch (error: unknown) {
+      // Type assertion to ensure 'error' is of type 'Error'
+      if (error instanceof Error) {
+        toast.error(error.message)
+      } else {
+        toast.error("Something went wrong")
+      }
     }
   }
 
@@ -67,4 +72,3 @@ export function ReviewForm({ productId }: { productId: string }) {
     </form>
   )
 }
-

@@ -23,6 +23,8 @@ export default function AddToCartButton({ product }: { product: Product }) {
       price: product.price,
       image: product.imageUrl,
       quantity: quantity,
+      _id: 0,
+      imageUrl: ""
     })
     toast.success(`${product.name} added to cart`)
   }

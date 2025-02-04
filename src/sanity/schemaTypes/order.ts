@@ -1,48 +1,72 @@
-export default {
+export const  orderSchema = {
   name: "order",
-  title: "Order",
   type: "document",
+  title: "Order",
   fields: [
     {
-      name: "customer",
-      title: "Customer",
-      type: "object",
-      fields: [
-        { name: "name", type: "string", title: "Name" },
-        { name: "email", type: "string", title: "Email" },
-        { name: "phone", type: "string", title: "Phone" },
-      ],
+      name: "firstName",
+      title: "First Name",
+      type: "string",
     },
     {
-      name: "shippingAddress",
-      title: "Shipping Address",
-      type: "object",
-      fields: [
-        { name: "street", type: "string", title: "Street" },
-        { name: "city", type: "string", title: "City" },
-        { name: "state", type: "string", title: "State" },
-        { name: "zipCode", type: "string", title: "ZIP Code" },
-        { name: "country", type: "string", title: "Country" },
-      ],
+      name: "lastName",
+      title: "Last Name",
+      type: "string",
     },
     {
-      name: "orderItems",
-      title: "Order Items",
+      name: "email",
+      title: "Email",
+      type: "string",
+    },
+    {
+      name: "phone",
+      title: "Phone",
+      type: "string",
+    },
+    {
+      name: "address",
+      title: "Address",
+      type: "string",
+    },
+    {
+      name: "city",
+      title: "City",
+      type: "string",
+    },
+    {
+      name: "zip",
+      title: "Zip",
+      type: "string",
+    },
+    {
+      name: "country",
+      title: "Country",
+      type: "string",
+    },
+    {
+      name: "cartItems",
+      title: "Cart Items",
       type: "array",
       of: [
         {
           type: "object",
           fields: [
-            { name: "products", type: "reference", to: [{ type: "products" }] },
-            { name: "quantity", type: "number" },
-            { name: "price", type: "number" },
+            {
+              name: "product",
+              type: "reference",
+              to: [{ type: "products" }],
+            },
+            {
+              name: "quantity",
+              type: "number",
+            },
           ],
         },
       ],
     },
     {
-      name: "totalAmount",
-      title: "Total Amount",
+      name: "total",
+      title: "Total",
       type: "number",
     },
     {
@@ -52,18 +76,15 @@ export default {
       options: {
         list: [
           { title: "Pending", value: "pending" },
-          { title: "Processing", value: "processing" },
-          { title: "Shipped", value: "shipped" },
-          { title: "Delivered", value: "delivered" },
-          { title: "Cancelled", value: "cancelled" },
+          { title: "Success", value: "success" },
+          { title: "Dispatch", value: "dispatch" },
         ],
+        layout: "radio",
       },
-    },
-    {
-      name: "createdAt",
-      title: "Created At",
-      type: "datetime",
+      initialValue: "pending",
     },
   ],
 }
+
+export default orderSchema
 

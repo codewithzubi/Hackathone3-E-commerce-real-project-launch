@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export function RegisterForm() {
   const router = useRouter()
@@ -34,8 +34,13 @@ export function RegisterForm() {
 
       toast.success("Registration successful!")
       router.push("/login")
-    } catch (error) {
-      toast.error(error.message)
+    } catch (error: unknown) {
+      // Handle the error properly by checking if it is an instance of Error
+      if (error instanceof Error) {
+        toast.error(error.message)
+      } else {
+        toast.error("Something went wrong")
+      }
     } finally {
       setIsLoading(false)
     }
@@ -76,4 +81,3 @@ export function RegisterForm() {
     </form>
   )
 }
-
