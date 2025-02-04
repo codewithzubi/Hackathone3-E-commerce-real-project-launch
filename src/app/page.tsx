@@ -107,7 +107,7 @@ export default async function Home() {
             {[1, 2, 3, 4, 5, 6, 7].map((index) => (
               <Image
                 key={index}
-                src={`/logo1-${index}.png`}
+                src={`/logo${index}.png`}
                 alt={`Brand Logo ${index}`}
                 width={100}
                 height={50}
