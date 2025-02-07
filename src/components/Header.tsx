@@ -100,53 +100,57 @@ export default function Header() {
           </div>
 
           {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="absolute top-full left-0 right-0 bg-white shadow-md md:hidden">
-              <div className="flex flex-col p-4 space-y-4">
-                <Link href="/" className="hover:text-primary transition-colors">
-                  Home
-                </Link>
-                <Link href="/products" className="hover:text-primary transition-colors">
-                  Products
-                </Link>
-                <Link href="/about" className="hover:text-primary transition-colors">
-                  About
-                </Link>
-                <Link href="/contact" className="hover:text-primary transition-colors">
-                  Contact
-                </Link>
+          <div
+            className={`absolute top-0 left-0 w-3/4 h-full bg-white shadow-md transform transition-all duration-500 ease-in-out z-50 ${
+              isMenuOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            <div className="flex flex-col p-4 space-y-4">
+              <Link href="/" className="hover:text-primary transition-colors">
+                Home
+              </Link>
+              <Link href="/products" className="hover:text-primary transition-colors">
+                Products
+              </Link>
+              <Link href="/about" className="hover:text-primary transition-colors">
+                About
+              </Link>
+              <Link href="/contact" className="hover:text-primary transition-colors">
+                Contact
+              </Link>
+              {/* Search Bar Inside Menu */}
+              <div className="mt-4">
                 <SearchBar />
-                <Link href="/cart" className="flex items-center">
-                  <ShoppingCart className="w-6 h-6 mr-2" />
-                  Cart ({cartQuantity})
-                </Link>
-                <Link href="/wishlist" className="flex items-center">
-                  <Heart className="w-6 h-6 mr-2" />
-                  Wishlist ({wishlistQuantity})
-                </Link>
-                {user ? (
-                  <>
-                    <Link href="/profile" className="hover:text-primary transition-colors">
-                      Profile
-                    </Link>
-                    <Link href="/wishlist" className="hover:text-primary transition-colors">
-                      Wishlist
-                    </Link>
-                    <button onClick={handleLogout} className="text-left hover:text-primary transition-colors">
-                      Logout
-                    </button>
-                  </>
-                ) : (
-                  <Link href="/login" className="hover:text-primary transition-colors">
-                    Login
-                  </Link>
-                )}
               </div>
+              <Link href="/cart" className="flex items-center">
+                <ShoppingCart className="w-6 h-6 mr-2" />
+                Cart ({cartQuantity})
+              </Link>
+              <Link href="/wishlist" className="flex items-center">
+                <Heart className="w-6 h-6 mr-2" />
+                Wishlist ({wishlistQuantity})
+              </Link>
+              {user ? (
+                <>
+                  <Link href="/profile" className="hover:text-primary transition-colors">
+                    Profile
+                  </Link>
+                  <Link href="/wishlist" className="hover:text-primary transition-colors">
+                    Wishlist
+                  </Link>
+                  <button onClick={handleLogout} className="text-left hover:text-primary transition-colors">
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link href="/login" className="hover:text-primary transition-colors">
+                  Login
+                </Link>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </nav>
     </header>
   )
 }
-

@@ -14,32 +14,32 @@ export default function HotCategories() {
     {
       id: '1',
       name: 'Modern Orange Chair',
-      image: '/img3.png',
+      image: '/hotc2.jpg',
       href: '/products/modern-orange-chair',
       featured: true
     },
     {
       id: '2',
       name: 'Tufted Accent Chair',
-      image: '/img4.png',
+      image: '/hotc1.jpg',
       href: '/products/tufted-accent-chair'
     },
     {
       id: '3',
       name: 'Vintage Dining Chair',
-      image: '/img1.png',
+      image: '/hotc3.jpg',
       href: '/products/vintage-dining-chair'
     },
     {
       id: '4',
       name: 'Gray Upholstered Chair',
-      image: '/img8.png',
+      image: '/hotc4.jpg',
       href: '/products/gray-upholstered-chair'
     },
     {
         id: '5',
         name: 'Gray Upholstered Chair',
-        image: '/img4.png',
+        image: '/hotc5.jpg',
         href: '/products/gray-upholstered-chair'
       }
   ]

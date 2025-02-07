@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ProductCard } from "@/components/ui/product-card"
 import { client } from "@/lib/sanity"
 import type { Product, Category } from "@/types/product"
+import  HotCategories from "../components/HotCategories"
 
 async function getFeaturedProducts(): Promise<Product[]> {
   const query = `*[_type == "products"][0...4]{
@@ -125,6 +126,7 @@ export default async function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product: Product) => (
               <ProductCard key={product._id} {...product} />
+              
             ))}
           </div>
         </div>
@@ -154,8 +156,12 @@ export default async function Home() {
         </div>
       </section>
 
+
+            <HotCategories/>
+
+
       {/* Explore New and Popular Styles */}
-      <section className="py-16">
+      {/* <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Explore New and Popular Styles</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -177,7 +183,7 @@ export default async function Home() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Our Products */}
       <section className="py-16 bg-gray-50">
