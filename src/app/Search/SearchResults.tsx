@@ -25,9 +25,10 @@ export default function SearchResults({ products }: { products: Product[] }) {
           slug={product.slug}
           category={product.category}
           isNew={product.isNew}
-          isSale={product.isSale} description={""} title={""}        />
+          isSale={product.isSale}
+          description={""} title={""}        
+        />
       ))}
     </div>
   )
 }
-

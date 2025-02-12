@@ -10,10 +10,9 @@ import { toast } from "react-hot-toast"
 import type { Product } from "@/types/product"
 
 export function ProductCard({ _id, title, price, priceWithoutDiscount, badge, imageUrl, slug, category }: Product) {
+  // Using hooks to add items to cart and wishlist
   const addItem = useCart((state) => state.addItem)
   const addToWishlist = useWishlist((state) => state.addItem)
-
-
   console.log(category)
 
   return (
@@ -44,6 +43,7 @@ export function ProductCard({ _id, title, price, priceWithoutDiscount, badge, im
             )}
           </div>
           <div className="flex space-x-2">
+            {/* Add to Cart Button with Hover Effect */}
             <Button
               variant="ghost"
               size="icon"
@@ -59,10 +59,11 @@ export function ProductCard({ _id, title, price, priceWithoutDiscount, badge, im
                 })
                 toast.success(`${title} added to cart`)
               }}
-              className="relative z-10"
+              className="relative z-10 text-gray-600 hover:text-teal-500 transition-colors"
             >
               <ShoppingCart className="h-5 w-5" />
             </Button>
+            {/* Add to Wishlist Button with Hover Effect */}
             <Button
               variant="ghost"
               size="icon"
@@ -75,7 +76,7 @@ export function ProductCard({ _id, title, price, priceWithoutDiscount, badge, im
                 })
                 toast.success(`${title} added to wishlist`)
               }}
-              className="relative z-10"
+              className="relative z-10 text-gray-600 hover:text-teal-500 transition-colors"
             >
               <Heart className="h-5 w-5" />
             </Button>
@@ -85,4 +86,3 @@ export function ProductCard({ _id, title, price, priceWithoutDiscount, badge, im
     </div>
   )
 }
-

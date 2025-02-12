@@ -1,10 +1,10 @@
-import { Suspense } from "react"
+"use client"
+import { Suspense, useState, useEffect } from "react"
 import { client } from "@/lib/sanity"
 import { groq } from "next-sanity"
 import SearchResults from "./SearchResults"
 import type { Product } from "@/types/product"
 
-// Define the search query using groq
 const searchQuery = groq`*[_type == "product" && (name match $searchTerm || category match $searchTerm)] {
   _id,
   name,
@@ -31,13 +31,22 @@ async function searchProducts(searchTerm: string) {
   }
 }
 
-export default async function SearchPage({
+export default function SearchPage({
   searchParams,
 }: {
   searchParams: { q: string }
 }) {
   const query = searchParams.q ?? ""
-  const products = await searchProducts(query)
+  const [products, setProducts] = useState<Product[]>([])
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const results = await searchProducts(query)
+      setProducts(results)
+    }
+
+    fetchProducts()
+  }, [query])
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -48,4 +57,3 @@ export default async function SearchPage({
     </div>
   )
 }
-

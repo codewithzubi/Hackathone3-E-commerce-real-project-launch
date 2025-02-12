@@ -1,6 +1,8 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+"use client"
+import { useState } from "react"
 
 export default function FAQPage() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null) // State to manage open accordion
   const faqs = [
     {
       question: "What payment methods do you accept?",
@@ -30,15 +32,28 @@ export default function FAQPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Frequently Asked Questions</h1>
-      <Accordion type="single" collapsible className="w-full">
+      <div className="w-full">
         {faqs.map((faq, index) => (
-          <AccordionItem key={index} value={`item-${index}`}>
-            <AccordionTrigger>{faq.question}</AccordionTrigger>
-            <AccordionContent>{faq.answer}</AccordionContent>
-          </AccordionItem>
+          <div key={index} className="mb-4">
+            {/* Trigger Question */}
+            <button
+              onClick={() => setOpenIndex(openIndex === index ? null : index)} // Toggle open/close
+              className="w-full text-left text-lg font-medium text-gray-800 bg-gray-200 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 hover:bg-gray-300 transition-all duration-300 ease-in-out"
+            >
+              {faq.question}
+            </button>
+
+            {/* Answer with smooth animation */}
+            <div
+              className={`overflow-hidden max-h-0 transition-all duration-500 ease-in-out ${
+                openIndex === index ? "max-h-40" : "" // Apply max-height when expanded
+              }`}
+            >
+              <p className="px-4 py-2 text-gray-700">{faq.answer}</p>
+            </div>
+          </div>
         ))}
-      </Accordion>
+      </div>
     </div>
   )
 }
-

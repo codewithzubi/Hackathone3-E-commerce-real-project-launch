@@ -11,11 +11,11 @@ import { FaPaypal, FaCcVisa, FaCcMastercard, FaCcAmex } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-200 px-4  sm:px-12 md:px-28">
-      <div className="mx-auto py-12">
+    <footer className="bg-white border-t border-gray-200 px-4 sm:px-12 md:px-28">
+      <div className="mx-auto py-12 max-w-screen-xl"> {/* Added max-width here */}
         <div className="flex flex-wrap justify-between gap-8">
           {/* Brand Section */}
-          <div className="flex flex-col w-full  md:w-[320px] items-start">
+          <div className="flex flex-col w-full md:w-[320px] items-start">
             <div className="flex items-center gap-2">
               <Image
                 src="/Logo Icon.jpg"
